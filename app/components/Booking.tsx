@@ -2,12 +2,37 @@
 
 import { useMemo, useState } from "react";
 
-const STORES = [
-  { value: "Optique de la Grande Ile", sub: "Antananarivo · Magri" },
-  { value: "Zoom Optique Gare Soarano", sub: "Antananarivo · Soarano" },
-  { value: "Arkadia Optique", sub: "Antananarivo · Centre Zoom" },
-  { value: "Ylang Optique (Krys Optique)", sub: "Nosy Be · Hell-Ville" },
-  { value: "Optique de l'Ankarana (Opticien Krys Antsiranana)", sub: "Antsiranana" },
+// `redirect` (optional) routes the booking flow to a third-party site
+// (Madadoc, for the three Antananarivo boutiques). When set, selecting
+// the store swaps the in-app "Continuer" CTA for a link to that URL,
+// skipping the service/date/time/contact steps entirely.
+type Store = {
+  value: string;
+  sub: string;
+  redirect?: string;
+};
+
+const STORES: Store[] = [
+  {
+    value: "Opticien Krys Akoor Digue",
+    sub: "Antananarivo",
+    redirect:
+      "https://madadoc.com/fr/p/ophtalmologue/antananarivo/ophtalmologue-krys-akoor-digue",
+  },
+  {
+    value: "Krys Antananarivo - Soarano",
+    sub: "Gare Soarano",
+    redirect:
+      "https://madadoc.com/fr/p/ophtalmologue/antananarivo/ophtalmologue-krys-gare-soarano",
+  },
+  {
+    value: "Krys Antananarivo - Cc Zoom",
+    sub: "Centre commercial Zoom",
+    redirect:
+      "https://madadoc.com/fr/p/ophtalmologue/antananarivo/ophtalmologue-krys-zoom-optique",
+  },
+  { value: "Krys Optique", sub: "Nosy Be · Hell-Ville" },
+  { value: "Opticien Krys Antsiranana", sub: "Antsiranana" },
 ];
 
 const SERVICES = [
@@ -68,6 +93,10 @@ export default function Booking() {
     (step === 3 && !!date) ||
     (step === 4 && !!time);
 
+  // If the selected store delegates booking to a third-party site, we
+  // surface that URL on the step 1 CTA and skip the remaining steps.
+  const externalUrl = STORES.find((s) => s.value === store)?.redirect;
+
   function restart() {
     setStep(1);
     setStore(null);
@@ -118,16 +147,33 @@ export default function Booking() {
               </button>
             ))}
           </div>
+          {externalUrl && (
+            <p className="hint" style={{ marginTop: 16, marginBottom: 0 }}>
+              Cette boutique gère ses rendez-vous sur Madadoc. Vous serez
+              redirigé vers leur site.
+            </p>
+          )}
           <div className="actions">
             <span />
-            <button
-              type="button"
-              className="next-btn"
-              disabled={!canNext}
-              onClick={() => setStep(2)}
-            >
-              Continuer →
-            </button>
+            {externalUrl ? (
+              <a
+                href={externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="next-btn"
+              >
+                Réserver sur Madadoc ↗
+              </a>
+            ) : (
+              <button
+                type="button"
+                className="next-btn"
+                disabled={!canNext}
+                onClick={() => setStep(2)}
+              >
+                Continuer →
+              </button>
+            )}
           </div>
         </div>
       )}

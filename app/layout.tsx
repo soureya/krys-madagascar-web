@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter_Tight, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import JsonLd from "@/components/JsonLd";
+import { storesSchema } from "@/lib/schema";
 
 const interTight = Inter_Tight({
   variable: "--font-inter-tight",
@@ -15,9 +17,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Krys Madagascar — La Vitrine",
+  title: "Krys Madagascar — Opticien à Antananarivo, Nosy Be & Antsiranana",
   description:
-    "Trois cabinets d'optique à Madagascar, affiliés au réseau Krys. Examens de vue, lunettes, lentilles, solaires.",
+    "Cinq cabinets d'optique agréés à Madagascar, affiliés au réseau Krys. Examens de vue, lunettes de vue, solaires et lentilles. Prenez rendez-vous en ligne.",
+  openGraph: {
+    title: "Krys Madagascar — Opticien à Antananarivo, Nosy Be & Antsiranana",
+    description:
+      "Cinq cabinets d'optique agréés à Madagascar. Examens de vue, lunettes, solaires, lentilles. Prenez rendez-vous.",
+    url: "https://krys-madagascar-web.vercel.app",
+    siteName: "Krys Madagascar",
+    locale: "fr_MG",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Krys Madagascar — Opticien à Madagascar",
+    description:
+      "Cinq cabinets d'optique agréés. Examens de vue, lunettes, lentilles. Prenez rendez-vous en ligne.",
+  },
 };
 
 export default function RootLayout({
@@ -30,7 +47,10 @@ export default function RootLayout({
       lang="fr"
       className={`${interTight.variable} ${geistMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <JsonLd data={{ "@graph": storesSchema }} />
+        {children}
+      </body>
     </html>
   );
 }

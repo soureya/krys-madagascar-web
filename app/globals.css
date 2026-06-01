@@ -29,6 +29,9 @@ body {
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
   line-height: 1.5;
+  /* `clip` instead of `hidden`: prevents horizontal scroll on mobile
+     without breaking `position: sticky` on the header. */
+  overflow-x: clip;
 }
 
 a {
@@ -807,6 +810,11 @@ button {
   font-weight: 500;
   cursor: pointer;
   transition: background 150ms;
+  /* Renders identically whether the element is a <button> or an <a>
+     (used when redirecting to Madadoc). */
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
 }
 .next-btn:hover {
   background: var(--blue-deep);
@@ -908,7 +916,9 @@ footer {
 }
 .foot-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  /* Last column (Contact) is wider to fit the full e-mail address on
+     a single line at narrow desktop widths (~1024–1200px). */
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
   gap: 40px;
   margin-bottom: 48px;
 }
@@ -932,6 +942,22 @@ footer {
 }
 .foot-grid a:hover {
   color: var(--ink);
+}
+/* Contact links: inline icon + label, locked on a single line.
+   `currentColor` on the SVG strokes means the icon inherits the hover
+   color transition automatically. Explicit svg width/height defeats
+   Tailwind's preflight, which sets `display: block` on <svg>. */
+.contact-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  line-height: 1;
+}
+.contact-list a svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
 }
 .foot-bottom {
   display: flex;
@@ -975,8 +1001,16 @@ footer {
   .heritage .container {
     grid-template-columns: 1fr;
   }
+  .section {
+    padding: 64px 0;
+  }
   .section-head {
     grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .section-head h2 {
+    font-size: 36px;
   }
   .section-head .right {
     text-align: left;
@@ -985,9 +1019,69 @@ footer {
     padding: 0 20px;
   }
   .top-inner {
-    padding: 16px 20px;
+    padding: 14px 20px;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
   }
   .top-inner .nav-links {
     display: none;
+  }
+  /* Phone number doesn't fit alongside brand + CTA on phone-width screens. */
+  .top-right .secondary {
+    display: none;
+  }
+  .heritage {
+    padding: 56px 0;
+  }
+  .heritage h2 {
+    font-size: 36px;
+  }
+  .heritage .container {
+    gap: 32px;
+  }
+  .booking-section {
+    padding: 64px 0;
+  }
+  .booking-side h2 {
+    font-size: 36px;
+  }
+  .booking {
+    padding: 20px;
+  }
+  .foot-grid {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* On very narrow screens, the wordmark logo alone identifies the brand;
+     drop the text to keep the CTA on the same line. */
+  .brand .name {
+    display: none;
+  }
+  .hero h1 {
+    font-size: 40px;
+  }
+  .section-head h2,
+  .heritage h2,
+  .booking-side h2 {
+    font-size: 30px;
+  }
+  /* 5-col date/time pickers are too cramped below ~440px content width. */
+  .choice-grid.cols-5 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .stepper {
+    gap: 0;
+    overflow-x: auto;
+  }
+  .step .lbl {
+    display: none;
+  }
+  .step .n {
+    margin-right: 0;
   }
 }

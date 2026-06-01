@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import Booking from "./components/Booking";
+import { OpenStatus, type Schedule } from "./components/OpenStatus";
 import brandsData from "@/data/brands.json";
 
 // Discover which brand IDs have an SVG logo in public/logos/.
@@ -64,8 +65,7 @@ const SERVICES = [
 
 type Boutique = {
   name: string;
-  open: boolean;
-  openLabel: string;
+  schedule: Schedule;
   coords: { lng: number; lat: number };
   address: React.ReactNode;
   hours: { label: string; value: string; cls?: "today" | "closed" }[];
@@ -82,9 +82,11 @@ function mapUrl(coords: { lng: number; lat: number }) {
 
 const BOUTIQUES: Boutique[] = [
   {
-    name: "Optique de la Grande Ile",
-    open: true,
-    openLabel: "● Ouvert",
+    name: "Opticien Krys Akoor Digue",
+    schedule: {
+      weekdays: { open: "8h30", close: "19h00" },
+      sunday: { open: "9h00", close: "12h30" },
+    },
     // Approx. Centre Commercial Magri area, Antananarivo — to confirm
     coords: { lng: 47.5197, lat: -18.9043 },
     address: (
@@ -102,9 +104,11 @@ const BOUTIQUES: Boutique[] = [
     phone: "+261 20 22 67 754",
   },
   {
-    name: "Zoom Optique Gare Soarano",
-    open: true,
-    openLabel: "● Ouvert",
+    name: "Krys Antananarivo - Soarano",
+    schedule: {
+      weekdays: { open: "9h00", close: "18h30" },
+      sunday: null,
+    },
     // Gare Soarano, Antananarivo (historic train station area)
     coords: { lng: 47.5223, lat: -18.9099 },
     address: (
@@ -122,9 +126,11 @@ const BOUTIQUES: Boutique[] = [
     phone: "+261 34 07 677 54",
   },
   {
-    name: "Arkadia Optique",
-    open: true,
-    openLabel: "● Ouvert",
+    name: "Krys Antananarivo - Cc Zoom",
+    schedule: {
+      weekdays: { open: "9h00", close: "19h00" },
+      sunday: { open: "9h00", close: "13h00" },
+    },
     // Centre commercial Arkadia/Zoom, Ankorondrano, Antananarivo
     coords: { lng: 47.5274, lat: -18.8783 },
     address: (
@@ -142,9 +148,11 @@ const BOUTIQUES: Boutique[] = [
     phone: "+261 34 07 677 54",
   },
   {
-    name: "Ylang Optique (Krys Optique)",
-    open: true,
-    openLabel: "● Ouvert",
+    name: "Krys Optique",
+    schedule: {
+      weekdays: { open: "8h30", close: "19h00" },
+      sunday: { open: "9h00", close: "12h30" },
+    },
     // Hell-Ville (Andoany), Nosy Be
     coords: { lng: 48.2746, lat: -13.4072 },
     address: (
@@ -162,9 +170,11 @@ const BOUTIQUES: Boutique[] = [
     phone: "+261 32 49 698 73",
   },
   {
-    name: "Optique de l'Ankarana (Opticien Krys Antsiranana)",
-    open: true,
-    openLabel: "● Ouvert",
+    name: "Opticien Krys Antsiranana",
+    schedule: {
+      weekdays: { open: "9h00", close: "18h30" },
+      sunday: null,
+    },
     // Rue Lafayette / Jean Bart, quartier Bazarikely, Antsiranana
     coords: { lng: 49.2926, lat: -12.2787 },
     address: (
@@ -225,8 +235,8 @@ export default function Home() {
                   §00 — Accueil
                 </span>
                 <h1>
-                  <b>Krys Madagascar,</b> votre expert de la vue dans{" "}
-                  <i>l&apos;Océan Indien</i>
+                  <b>Krys Madagascar,</b> votre opticien de référence à{" "}
+                  <i>Madagascar</i>
                 </h1>
               </div>
               <div className="hero-text-bottom">
@@ -247,7 +257,7 @@ export default function Home() {
             <div className="hero-photo">
               <Image
                 src="/hero.png"
-                alt="Couple portant des lunettes Krys dans un environnement urbain"
+                alt="Femme essayant des lunettes de vue dans un magasin Krys Madagascar à Antananarivo"
                 fill
                 priority
                 sizes="(max-width: 1000px) 100vw, 50vw"
@@ -300,7 +310,7 @@ export default function Home() {
               <article key={b.name} className="boutique">
                 <div className="boutique-head">
                   <h3>{b.name}</h3>
-                  <span className={`tag ${b.open ? "open" : ""}`.trim()}>{b.openLabel}</span>
+                  <OpenStatus schedule={b.schedule} />
                 </div>
                 <div className="map">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -466,19 +476,19 @@ export default function Home() {
               <h4>Boutiques</h4>
               <ul>
                 <li>
-                  <a href="#boutiques">Grande Ile, Antananarivo</a>
+                  <a href="#boutiques">Opticien Krys Akoor Digue</a>
                 </li>
                 <li>
-                  <a href="#boutiques">Gare Soarano, Antananarivo</a>
+                  <a href="#boutiques">Krys Antananarivo - Soarano</a>
                 </li>
                 <li>
-                  <a href="#boutiques">Arkadia, Antananarivo</a>
+                  <a href="#boutiques">Krys Antananarivo - Cc Zoom</a>
                 </li>
                 <li>
-                  <a href="#boutiques">Ylang Optique (Krys Optique), Nosy Be</a>
+                  <a href="#boutiques">Krys Optique, Nosy Be</a>
                 </li>
                 <li>
-                  <a href="#boutiques">Optique de l&apos;Ankarana (Opticien Krys Antsiranana)</a>
+                  <a href="#boutiques">Opticien Krys Antsiranana</a>
                 </li>
               </ul>
             </div>
@@ -515,15 +525,74 @@ export default function Home() {
             </div>
             <div>
               <h4>Contact</h4>
-              <ul>
+              <ul className="contact-list">
                 <li>
                   <a href="#">+261 20 22 234 56</a>
                 </li>
                 <li>
-                  <a href="mailto:bonjour@krys-madagascar.mg">E-mail</a>
+                  <a href="mailto:o.ingenierie@gmail.com">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <path d="M22 7 12 13 2 7" />
+                    </svg>
+                    o.ingenierie@gmail.com
+                  </a>
                 </li>
                 <li>
-                  <a href="#">Instagram</a>
+                  <a
+                    href="https://www.instagram.com/opticien.krys.madagascar/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <rect x="2" y="2" width="20" height="20" rx="5" />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                    </svg>
+                    Instagram
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=100091237004354"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                    </svg>
+                    Facebook
+                  </a>
                 </li>
               </ul>
             </div>
