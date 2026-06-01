@@ -340,7 +340,13 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="boutique-foot">
-                  <a href="#">Itinéraire</a>
+                  <a
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${b.coords.lat},${b.coords.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Itinéraire
+                  </a>
                   <a href="#rdv" className="primary">
                     Réserver
                   </a>

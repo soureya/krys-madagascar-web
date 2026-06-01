@@ -24,6 +24,7 @@ export const storesSchema = [
       streetAddress: "Centre Commercial Magri, 12011 Poste Zoom",
       addressLocality: "Antananarivo",
       postalCode: "101",
+      addressCountry: "MG",
     },
     openingHoursSpecification: [
       {
@@ -49,6 +50,7 @@ export const storesSchema = [
       streetAddress: "Centre commercial Gare Soarano",
       addressLocality: "Antananarivo",
       postalCode: "101",
+      addressCountry: "MG",
     },
     openingHoursSpecification: [
       {
@@ -68,6 +70,7 @@ export const storesSchema = [
       streetAddress: "Galerie Zoom Ankorondrano",
       addressLocality: "Antananarivo",
       postalCode: "101",
+      addressCountry: "MG",
     },
     openingHoursSpecification: [
       {
@@ -92,6 +95,8 @@ export const storesSchema = [
       "@type": "PostalAddress",
       streetAddress: "Centre commercial le Mail, Djabala, Hell-Ville",
       addressLocality: "Nosy Be",
+      postalCode: "207",
+      addressCountry: "MG",
     },
     openingHoursSpecification: [
       {
@@ -117,6 +122,7 @@ export const storesSchema = [
       streetAddress: "Rue Lafayette et Jean Bart, Bazarikely",
       addressLocality: "Antsiranana",
       postalCode: "201",
+      addressCountry: "MG",
     },
     openingHoursSpecification: [
       {
