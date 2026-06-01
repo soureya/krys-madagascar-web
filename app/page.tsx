@@ -248,7 +248,7 @@ export default function Home() {
                   §00 — Accueil
                 </span>
                 <h1>
-                  <b>Krys Madagascar,</b> votre opticien de référence à{" "}
+                  <b>Krys,</b> votre opticien de référence à{" "}
                   <i>Madagascar</i>
                 </h1>
               </div>
