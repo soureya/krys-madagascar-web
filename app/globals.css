@@ -497,6 +497,14 @@ button {
   background: #fff;
   transition: background 150ms;
   padding: 20px 28px;
+  /* Grid items default to `min-width: auto` (= content size). Some brand
+     SVGs declare an intrinsic width (e.g. width="600") in their root,
+     which makes the cell refuse to shrink below that — causing the grid
+     to overflow the viewport on phones. `min-width: 0` releases that
+     constraint so 1fr columns can actually shrink. `overflow: hidden`
+     is defense in depth against any rogue child. */
+  min-width: 0;
+  overflow: hidden;
 }
 .partner-cell:hover {
   background: var(--bg-3);
