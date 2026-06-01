@@ -1,65 +1,539 @@
+import fs from "node:fs";
+import path from "node:path";
 import Image from "next/image";
+import Booking from "./components/Booking";
+import brandsData from "@/data/brands.json";
+
+// Discover which brand IDs have an SVG logo in public/logos/.
+// Drop a new file named `{id}.svg` and it appears automatically.
+const logosDir = path.join(process.cwd(), "public", "logos");
+const availableLogos = new Set<string>(
+  fs.existsSync(logosDir)
+    ? fs
+        .readdirSync(logosDir)
+        .filter((f) => f.endsWith(".svg"))
+        .map((f) => f.replace(/\.svg$/, ""))
+    : [],
+);
+
+const TICKER_ITEMS = [
+  "Krys Madagascar",
+  "5 cabinets agréés Ministère de la Santé",
+  "Examen de vue sur RDV",
+  "5 boutiques · Antananarivo, Antsiranana & Nosy-Be",
+  "Ray-Ban · Oakley · Persol · Maui Jim",
+];
+
+const SERVICES = [
+  {
+    n: "01",
+    title: "Examen de vue",
+    desc: "Bilan complet de réfraction, prescription, contrôle pupillaire. Sur rendez-vous, 30 min.",
+    cta: "Réserver →",
+    href: "#rdv",
+  },
+  {
+    n: "02",
+    title: "Lunettes de vue",
+    desc: "Conseil monture, prise de mesure et montage en atelier sous 48 heures.",
+    cta: "Réserver →",
+    href: "#rdv",
+  },
+  {
+    n: "03",
+    title: "Solaires",
+    desc: "Solaires de prescription, polarisées ou photochromiques. Sélection saisonnière.",
+    cta: "Voir vitrine →",
+    href: "#rdv",
+  },
+  {
+    n: "04",
+    title: "Lentilles",
+    desc: "Pose, adaptation et suivi. Souples, rigides, progressives. Sur rendez-vous.",
+    cta: "Réserver →",
+    href: "#rdv",
+  },
+  {
+    n: "05",
+    title: "Réparations",
+    desc: "Vis, branche, plaquette. Sans rendez-vous, généralement le jour même.",
+    cta: "En boutique →",
+    href: "#boutiques",
+  },
+];
+
+type Boutique = {
+  name: string;
+  open: boolean;
+  openLabel: string;
+  coords: { lng: number; lat: number };
+  address: React.ReactNode;
+  hours: { label: string; value: string; cls?: "today" | "closed" }[];
+  phone: string;
+};
+
+// Mapbox Static Images API URL. Krys-blue pin, "light-v11" style for
+// editorial sobriety. Token is restricted to your domain in production.
+function mapUrl(coords: { lng: number; lat: number }) {
+  const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+  const { lng, lat } = coords;
+  return `https://api.mapbox.com/styles/v1/mapbox/light-v11/static/pin-l+1955d9(${lng},${lat})/${lng},${lat},15/600x360@2x?access_token=${token}`;
+}
+
+const BOUTIQUES: Boutique[] = [
+  {
+    name: "Optique de la Grande Ile",
+    open: true,
+    openLabel: "● Ouvert",
+    // Approx. Centre Commercial Magri area, Antananarivo — to confirm
+    coords: { lng: 47.5197, lat: -18.9043 },
+    address: (
+      <>
+        Centre Commercial Magri, 12011 Poste Zoom
+        <br />
+        101 Antananarivo · Madagascar
+      </>
+    ),
+    hours: [
+      { label: "Aujourd'hui", value: "8h30 — 19h00", cls: "today" },
+      { label: "Lun — Sam", value: "8h30 — 19h00" },
+      { label: "Dimanche", value: "9h00 — 12h30" },
+    ],
+    phone: "+261 20 22 67 754",
+  },
+  {
+    name: "Zoom Optique Gare Soarano",
+    open: true,
+    openLabel: "● Ouvert",
+    // Gare Soarano, Antananarivo (historic train station area)
+    coords: { lng: 47.5223, lat: -18.9099 },
+    address: (
+      <>
+        Centre commercial Gare Soarano
+        <br />
+        101 Antananarivo · Madagascar
+      </>
+    ),
+    hours: [
+      { label: "Aujourd'hui", value: "9h00 — 18h30", cls: "today" },
+      { label: "Lun — Sam", value: "9h00 — 18h30" },
+      { label: "Dimanche", value: "Fermé", cls: "closed" },
+    ],
+    phone: "+261 34 07 677 54",
+  },
+  {
+    name: "Arkadia Optique",
+    open: true,
+    openLabel: "● Ouvert",
+    // Centre commercial Arkadia/Zoom, Ankorondrano, Antananarivo
+    coords: { lng: 47.5274, lat: -18.8783 },
+    address: (
+      <>
+        Galerie Zoom Ankorondrano
+        <br />
+        Antananarivo 101 · Madagascar
+      </>
+    ),
+    hours: [
+      { label: "Aujourd'hui", value: "9h00 — 19h00", cls: "today" },
+      { label: "Lun — Sam", value: "9h00 — 19h00" },
+      { label: "Dimanche", value: "9h00 — 13h00" },
+    ],
+    phone: "+261 34 07 677 54",
+  },
+  {
+    name: "Ylang Optique (Krys Optique)",
+    open: true,
+    openLabel: "● Ouvert",
+    // Hell-Ville (Andoany), Nosy Be
+    coords: { lng: 48.2746, lat: -13.4072 },
+    address: (
+      <>
+        Centre commercial le Mail, Djabala, Hell-Ville
+        <br />
+        Nosy Be · Madagascar
+      </>
+    ),
+    hours: [
+      { label: "Aujourd'hui", value: "8h30 — 19h00", cls: "today" },
+      { label: "Lun — Sam", value: "8h30 — 19h00" },
+      { label: "Dimanche", value: "9h00 — 12h30" },
+    ],
+    phone: "+261 32 49 698 73",
+  },
+  {
+    name: "Optique de l'Ankarana (Opticien Krys Antsiranana)",
+    open: true,
+    openLabel: "● Ouvert",
+    // Rue Lafayette / Jean Bart, quartier Bazarikely, Antsiranana
+    coords: { lng: 49.2926, lat: -12.2787 },
+    address: (
+      <>
+        Rue Lafayette et Jean Bart, Bazarikely
+        <br />
+        Antsiranana 201 · Madagascar
+      </>
+    ),
+    hours: [
+      { label: "Aujourd'hui", value: "9h00 — 18h30", cls: "today" },
+      { label: "Lun — Sam", value: "9h00 — 18h30" },
+      { label: "Dimanche", value: "Fermé", cls: "closed" },
+    ],
+    phone: "+261 34 07 677 54",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <div className="ticker">
+        <div className="ticker-track">
+          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
+            <span key={i}>{item}</span>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </div>
+
+      <header className="top">
+        <div className="top-inner">
+          <div className="brand">
+            <Image src="/krys.svg" alt="Krys" width={62} height={28} priority />
+            <span className="name">Krys Madagascar</span>
+          </div>
+          <nav className="nav-links">
+            <a href="#frames">Vitrine</a>
+            <a href="#services">Services</a>
+            <a href="#boutiques">Boutiques</a>
+            <a href="#partenaires">Marques</a>
+            <a href="#histoire">Histoire</a>
+          </nav>
+          <div className="top-right">
+            <span className="secondary">+261 20 22 234 56</span>
+            <a href="#rdv" className="cta">
+              Prendre rendez-vous
+            </a>
+          </div>
         </div>
-      </main>
-    </div>
+      </header>
+
+      <section className="hero" id="frames">
+        <div className="container">
+          <div className="hero-grid">
+            <div className="hero-text">
+              <div className="hero-text-top">
+                <span className="mono" style={{ color: "var(--ink-3)" }}>
+                  §00 — Accueil
+                </span>
+                <h1>
+                  <b>Krys Madagascar,</b> votre expert de la vue dans{" "}
+                  <i>l&apos;Océan Indien</i>
+                </h1>
+              </div>
+              <div className="hero-text-bottom">
+                <p className="lede">
+                  Lunettes de vue, solaire, lentilles et accompagnement personnalisé par nos
+                  opticiens.
+                </p>
+                <div className="ctas">
+                  <a href="#rdv" className="btn primary">
+                    Prendre rendez-vous →
+                  </a>
+                  <a href="#boutiques" className="btn ghost">
+                    Nos boutiques
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="hero-photo">
+              <Image
+                src="/hero.png"
+                alt="Couple portant des lunettes Krys dans un environnement urbain"
+                fill
+                priority
+                sizes="(max-width: 1000px) 100vw, 50vw"
+                className="hero-photo-img"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="services">
+        <div className="container">
+          <div className="section-head">
+            <span className="num">§01</span>
+            <h2>
+              <b>Services</b> en magasins
+            </h2>
+            <div className="right">
+              Examens, montages, lentilles et ajustements — tout se fait sur place, par nos
+              opticiens diplômés.
+            </div>
+          </div>
+          <div className="services">
+            {SERVICES.map((s) => (
+              <a key={s.n} className="service" href={s.href}>
+                <div className="ico">{s.n}</div>
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
+                <span className="more">{s.cta}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="boutiques">
+        <div className="container">
+          <div className="section-head">
+            <span className="num">§02</span>
+            <h2>
+              <b>Cinq</b> boutiques
+            </h2>
+            <div className="right">
+              Trois adresses à Antananarivo, une à Nosy Be et une dans le Nord. Les cinq cabinets
+              sont agréés par le Ministère de la Santé.
+            </div>
+          </div>
+          <div className="boutiques">
+            {BOUTIQUES.map((b) => (
+              <article key={b.name} className="boutique">
+                <div className="boutique-head">
+                  <h3>{b.name}</h3>
+                  <span className={`tag ${b.open ? "open" : ""}`.trim()}>{b.openLabel}</span>
+                </div>
+                <div className="map">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={mapUrl(b.coords)}
+                    alt={`Carte ${b.name}`}
+                    className="map-img"
+                    loading="lazy"
+                    width={600}
+                    height={360}
+                  />
+                </div>
+                <div className="boutique-body">
+                  <p className="addr">{b.address}</p>
+                  <div className="hours">
+                    {b.hours.map((h) => (
+                      <div key={h.label} className={`row ${h.cls ?? ""}`.trim()}>
+                        <span>{h.label}</span>
+                        <span>{h.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="phone">{b.phone}</div>
+                  <div className="accred">
+                    <span className="accred-mark">✓</span>
+                    Cabinet agréé&nbsp;— Ministère de la Santé
+                  </div>
+                </div>
+                <div className="boutique-foot">
+                  <a href="#">Itinéraire</a>
+                  <a href="#rdv" className="primary">
+                    Réserver
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section partners-section" id="partenaires">
+        <div className="container">
+          <div className="section-head">
+            <span className="num">§03</span>
+            <h2>
+              <b>Parmi les marques</b> partenaires
+            </h2>
+            <div className="right">
+              Une sélection rigoureuse. Distribution officielle, garantie internationale, et essais
+              sans engagement en boutique.
+            </div>
+          </div>
+          <div className="partners-grid">
+            {brandsData.brands
+              .filter((b) => availableLogos.has(b.id))
+              .map((b) => (
+                <div key={b.id} className="partner-cell" title={b.name}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`/logos/${b.id}.svg`}
+                    alt={b.name}
+                    className="partner-logo"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="heritage" id="histoire">
+        <div className="container">
+          <div>
+            <span className="mono" style={{ color: "rgba(255,255,255,0.5)" }}>
+              §04 — Histoire
+            </span>
+            <h2 style={{ marginTop: 14 }}>
+              Krys Madagascar, votre référence en optique <b>depuis 1997.</b>
+            </h2>
+            <p>
+              Née d&apos;une volonté simple : offrir à chaque Malgache un service
+              d&apos;optique d&apos;excellence, sans avoir à quitter l&apos;île. Près de trois
+              décennies plus tard, c&apos;est une histoire qui continue de grandir : cinq
+              boutiques, cinq opticiens diplômés et plus de 100 marques partenaires.
+            </p>
+            <p>Nos cinq cabinets sont agréés par le Ministère de la Santé.</p>
+          </div>
+          <div className="stats">
+            <div className="stat">
+              <b>1997</b>
+              <span>Première boutique</span>
+            </div>
+            <div className="stat">
+              <b>05</b>
+              <span>Adresses à Madagascar</span>
+            </div>
+            <div className="stat">
+              <b>05</b>
+              <span>Opticiens diplômés</span>
+            </div>
+            <div className="stat">
+              <b>100+</b>
+              <span>Marques partenaires</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="booking-section" id="rdv">
+        <div className="container">
+          <div className="booking-wrap">
+            <div className="booking-side">
+              <span className="mono" style={{ color: "var(--ink-3)" }}>
+                §05 — Rendez-vous
+              </span>
+              <h2 style={{ marginTop: 14 }}>
+                <b>Réservez</b>
+                <br />
+                en deux minutes.
+              </h2>
+              <p className="lede">
+                Disponibilités en temps réel sur les trois boutiques. Confirmation par e-mail et
+                SMS, gratuite, sans engagement.
+              </p>
+              <ul>
+                <li>
+                  <b>30 minutes</b>&nbsp; en moyenne par examen
+                </li>
+                <li>
+                  <b>Tiers payant</b>&nbsp; avec les principales mutuelles
+                </li>
+                <li>
+                  <b>Annulation libre</b>&nbsp; jusqu&apos;à 24 heures avant
+                </li>
+              </ul>
+            </div>
+            <Booking />
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div className="container">
+          <div className="foot-grid">
+            <div>
+              <div className="brand">
+                <Image src="/krys.svg" alt="Krys" width={62} height={28} />
+                <span className="name">Krys Madagascar</span>
+              </div>
+              <p
+                style={{
+                  marginTop: 14,
+                  color: "var(--ink-2)",
+                  fontSize: 13,
+                  maxWidth: "32ch",
+                  lineHeight: 1.55,
+                }}
+              >
+                Cinq cabinets d&apos;optique à Madagascar, affiliés au réseau Krys.
+              </p>
+            </div>
+            <div>
+              <h4>Boutiques</h4>
+              <ul>
+                <li>
+                  <a href="#boutiques">Grande Ile, Antananarivo</a>
+                </li>
+                <li>
+                  <a href="#boutiques">Gare Soarano, Antananarivo</a>
+                </li>
+                <li>
+                  <a href="#boutiques">Arkadia, Antananarivo</a>
+                </li>
+                <li>
+                  <a href="#boutiques">Ylang Optique (Krys Optique), Nosy Be</a>
+                </li>
+                <li>
+                  <a href="#boutiques">Optique de l&apos;Ankarana (Opticien Krys Antsiranana)</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4>Services</h4>
+              <ul>
+                <li>
+                  <a href="#services">Examens</a>
+                </li>
+                <li>
+                  <a href="#services">Lunettes</a>
+                </li>
+                <li>
+                  <a href="#services">Lentilles</a>
+                </li>
+                <li>
+                  <a href="#services">Réparations</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4>Maison</h4>
+              <ul>
+                <li>
+                  <a href="#histoire">Histoire</a>
+                </li>
+                <li>
+                  <a href="#partenaires">Marques</a>
+                </li>
+                <li>
+                  <a href="#">Carrières</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4>Contact</h4>
+              <ul>
+                <li>
+                  <a href="#">+261 20 22 234 56</a>
+                </li>
+                <li>
+                  <a href="mailto:bonjour@krys-madagascar.mg">E-mail</a>
+                </li>
+                <li>
+                  <a href="#">Instagram</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="foot-bottom">
+            <span>© 2026 Krys Madagascar</span>
+            <span>Mentions légales · Confidentialité</span>
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }
