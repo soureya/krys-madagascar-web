@@ -518,9 +518,6 @@ export default function Home() {
                 <li>
                   <a href="#partenaires">Marques</a>
                 </li>
-                <li>
-                  <a href="#">Carrières</a>
-                </li>
               </ul>
             </div>
             <div>

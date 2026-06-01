@@ -991,9 +991,19 @@ footer {
     aspect-ratio: 5 / 4;
     min-height: 0;
   }
-  .partners-grid,
   .services {
     grid-template-columns: repeat(2, 1fr);
+  }
+  /* Partner logos need denser packing than services to stay readable:
+     2 cols leave a 160×80 cell on a phone, padded down to a 104×40
+     strip — too flat for square-ish logos. 4 cols on tablet, then 3
+     cols + 1:1 ratio + tighter padding on phones gives breathing
+     room for each logo. */
+  .partners-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .partner-cell {
+    padding: 16px 18px;
   }
   .boutiques,
   .booking-wrap,
@@ -1050,6 +1060,18 @@ footer {
   }
   .foot-grid {
     gap: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Phone-sized: 3 partner cells per row, square cells so logos sit
+     with vertical breathing room instead of a flattened strip. */
+  .partners-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .partner-cell {
+    aspect-ratio: 1 / 1;
+    padding: 14px;
   }
 }
 
