@@ -67,6 +67,9 @@ type Boutique = {
   name: string;
   schedule: Schedule;
   coords: { lng: number; lat: number };
+  // Verified Google Business listing — used by the "Itinéraire" link so
+  // the destination resolves to the right shop rather than just a pin.
+  mapsUrl: string;
   address: React.ReactNode;
   hours: { label: string; value: string; cls?: "today" | "closed" }[];
   phone: string;
@@ -89,6 +92,8 @@ const BOUTIQUES: Boutique[] = [
     },
     // Approx. Centre Commercial Magri area, Antananarivo — to confirm
     coords: { lng: 47.5197, lat: -18.9043 },
+    mapsUrl:
+      "https://www.google.com/maps/place/Opticien+Krys+Akoor+Digue/@-18.8927457,47.4898732,17z/data=!3m1!4b1!4m6!3m5!1s0x21f081be9ede8c87:0xd71b33a4471119c2!8m2!3d-18.8927508!4d47.4924481!16s%2Fg%2F11vb1y0l2y",
     address: (
       <>
         Centre Commercial Magri, 12011 Poste Zoom
@@ -111,6 +116,8 @@ const BOUTIQUES: Boutique[] = [
     },
     // Gare Soarano, Antananarivo (historic train station area)
     coords: { lng: 47.5223, lat: -18.9099 },
+    mapsUrl:
+      "https://www.google.com/maps/place/Krys+Antananarivo+-+Soarano/@-18.8926989,47.4718485,14z/data=!4m10!1m2!2m1!1sKrys+Antananarivo+-+Soarano!3m6!1s0x21f07e0243e7dde5:0xb43eca121964d6b!8m2!3d-18.903342!4d47.521061!15sChtLcnlzIEFudGFuYW5hcml2byAtIFNvYXJhbm8iA4gBAZIBCG9wdGljaWFu4AEA!16s%2Fg%2F11gd67wklj",
     address: (
       <>
         Centre commercial Gare Soarano
@@ -133,6 +140,8 @@ const BOUTIQUES: Boutique[] = [
     },
     // Centre commercial Arkadia/Zoom, Ankorondrano, Antananarivo
     coords: { lng: 47.5274, lat: -18.8783 },
+    mapsUrl:
+      "https://www.google.com/maps/place/Krys+Antananarivo+-+Cc+Zoom/@-18.8926989,47.4718485,14z/data=!4m10!1m2!2m1!1sKrys+Antananarivo+-+Soarano!3m6!1s0x21f080ca09f63af1:0x6fc10faa1b2fb006!8m2!3d-18.8836263!4d47.5234948!15sChtLcnlzIEFudGFuYW5hcml2byAtIFNvYXJhbm8iA4gBAZIBCG9wdGljaWFu4AEA!16s%2Fg%2F11b6d43c13",
     address: (
       <>
         Galerie Zoom Ankorondrano
@@ -155,6 +164,8 @@ const BOUTIQUES: Boutique[] = [
     },
     // Hell-Ville (Andoany), Nosy Be
     coords: { lng: 48.2746, lat: -13.4072 },
+    mapsUrl:
+      "https://www.google.com/maps/place/KRYS+OPTIQUE/@-13.3926892,48.2516687,17z/data=!3m1!4b1!4m6!3m5!1s0x2213c75e1c1732cb:0xa722bf4470085725!8m2!3d-13.3926945!4d48.2565396!16s%2Fg%2F11kqfpntxj",
     address: (
       <>
         Centre commercial le Mail, Djabala, Hell-Ville
@@ -177,6 +188,8 @@ const BOUTIQUES: Boutique[] = [
     },
     // Rue Lafayette / Jean Bart, quartier Bazarikely, Antsiranana
     coords: { lng: 49.2926, lat: -12.2787 },
+    mapsUrl:
+      "https://www.google.com/maps/place/Opticien+Krys+ANTSIRANANA/@-12.2825095,49.289078,17z/data=!3m1!4b1!4m6!3m5!1s0x226b1d00469e9f45:0x12d8372d78b93f9a!8m2!3d-12.2825148!4d49.2916529!16s%2Fg%2F11w46rdwpr",
     address: (
       <>
         Rue Lafayette et Jean Bart, Bazarikely
@@ -341,7 +354,7 @@ export default function Home() {
                 </div>
                 <div className="boutique-foot">
                   <a
-                    href={`https://www.google.com/maps/dir/?api=1&destination=${b.coords.lat},${b.coords.lng}`}
+                    href={b.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
