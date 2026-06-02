@@ -456,7 +456,7 @@ export default function Home() {
                 en deux minutes.
               </h2>
               <p className="lede">
-                Disponibilités en temps réel sur les trois boutiques. Confirmation par e-mail et
+                Disponibilités en temps réel sur les cinq boutiques. Confirmation par e-mail et
                 SMS, gratuite, sans engagement.
               </p>
               <ul>
