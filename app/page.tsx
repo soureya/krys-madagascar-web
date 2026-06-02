@@ -51,8 +51,8 @@ const SERVICES = [
     n: "04",
     title: "Lentilles",
     desc: "Pose, adaptation et suivi. Souples, rigides, progressives.",
-    cta: "Réserver →",
-    href: "#rdv",
+    cta: "Voir Catalogue ↗",
+    href: "https://www.krys.com/lentilles",
   },
   {
     n: "05",
