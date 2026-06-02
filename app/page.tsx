@@ -29,7 +29,7 @@ const SERVICES = [
   {
     n: "01",
     title: "Examen de vue",
-    desc: "Bilan complet de réfraction, prescription, contrôle pupillaire. Sur rendez-vous, 30 min.",
+    desc: "Bilan complet de réfraction, prescription, contrôle pupillaire. Sur rendez-vous.",
     cta: "Réserver →",
     href: "#rdv",
   },
@@ -37,20 +37,20 @@ const SERVICES = [
     n: "02",
     title: "Lunettes de vue",
     desc: "Conseil monture, prise de mesure et montage en atelier sous 48 heures.",
-    cta: "Réserver →",
-    href: "#rdv",
+    cta: "Voir Catalogue ↗",
+    href: "https://www.krys.com/lunettes-de-vue",
   },
   {
     n: "03",
     title: "Solaires",
     desc: "Solaires de prescription, polarisées ou photochromiques. Sélection saisonnière.",
-    cta: "Voir vitrine →",
-    href: "#rdv",
+    cta: "Voir Catalogue ↗",
+    href: "https://www.krys.com/lunettes-de-soleil",
   },
   {
     n: "04",
     title: "Lentilles",
-    desc: "Pose, adaptation et suivi. Souples, rigides, progressives. Sur rendez-vous.",
+    desc: "Pose, adaptation et suivi. Souples, rigides, progressives.",
     cta: "Réserver →",
     href: "#rdv",
   },
@@ -316,19 +316,27 @@ export default function Home() {
               <b>Services</b> en magasins
             </h2>
             <div className="right">
-              Examens, montages, lentilles et ajustements — tout se fait sur place, par nos
-              opticiens diplômés.
+              Examens, montages, lentilles et ajustements — tout se fait sur place.
             </div>
           </div>
           <div className="services">
-            {SERVICES.map((s) => (
-              <a key={s.n} className="service" href={s.href}>
-                <div className="ico">{s.n}</div>
-                <h3>{s.title}</h3>
-                <p>{s.desc}</p>
-                <span className="more">{s.cta}</span>
-              </a>
-            ))}
+            {SERVICES.map((s) => {
+              const isExternal = s.href.startsWith("https://");
+              return (
+                <a
+                  key={s.n}
+                  className="service"
+                  href={s.href}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                >
+                  <div className="ico">{s.n}</div>
+                  <h3>{s.title}</h3>
+                  <p>{s.desc}</p>
+                  <span className="more">{s.cta}</span>
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -471,7 +479,7 @@ export default function Home() {
               <b>Parmi les marques</b> partenaires
             </h2>
             <div className="right">
-              Une sélection rigoureuse. Distribution officielle, garantie internationale, et essais
+              Une sélection rigoureuse. Distribution officielle, et essais
               sans engagement en boutique.
             </div>
           </div>
@@ -538,18 +546,17 @@ export default function Home() {
                 en deux minutes.
               </h2>
               <p className="lede">
-                Disponibilités en temps réel sur les six boutiques. Confirmation par e-mail et
-                SMS, gratuite, sans engagement.
+                Disponibilités en temps réel sur les six boutiques.
               </p>
               <ul>
                 <li>
                   <b>30 minutes</b>&nbsp; en moyenne par examen
                 </li>
                 <li>
-                  <b>Tiers payant</b>&nbsp; avec les principales mutuelles
+                  <b>Prise en charge</b>&nbsp; par vos assurances et mutuelles de référence
                 </li>
                 <li>
-                  <b>Annulation libre</b>&nbsp; jusqu&apos;à 24 heures avant
+                  <b>Annulation libre</b>
                 </li>
               </ul>
             </div>
