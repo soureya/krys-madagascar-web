@@ -5,15 +5,17 @@ import { useEffect, useState } from "react";
 export type DayHours = { open: string; close: string };
 
 /**
- * Opening hours for a boutique. We only need two patterns to cover every
- * current store: Monday–Saturday hours, and a distinct Sunday range
- * (or `null` if the boutique is closed on Sundays).
+ * Opening hours for a boutique. Each day is a list of ranges:
+ *   - empty array → closed that day
+ *   - one range   → continuous opening (e.g. 9h00–18h00)
+ *   - two ranges  → split shift with a midday break
+ *     (e.g. 9h00–12h00 then 14h00–18h00)
  *
  * Hour strings accept the French "8h30" form as well as "08:30".
  */
 export type Schedule = {
-  weekdays: DayHours | null;
-  sunday: DayHours | null;
+  weekdays: DayHours[];
+  sunday: DayHours[];
 };
 
 // "8h30", "08:30", "9h" → minutes since midnight.
@@ -49,9 +51,10 @@ function madagascarNow(d: Date) {
 
 function isOpen(schedule: Schedule, d: Date): boolean {
   const { dayOfWeek, minutes } = madagascarNow(d);
-  const today = dayOfWeek === 0 ? schedule.sunday : schedule.weekdays;
-  if (!today) return false;
-  return minutes >= parseHHMM(today.open) && minutes < parseHHMM(today.close);
+  const ranges = dayOfWeek === 0 ? schedule.sunday : schedule.weekdays;
+  return ranges.some(
+    (r) => minutes >= parseHHMM(r.open) && minutes < parseHHMM(r.close),
+  );
 }
 
 export function OpenStatus({ schedule }: { schedule: Schedule }) {

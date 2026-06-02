@@ -343,6 +343,24 @@ button {
   letter-spacing: 0.05em;
 }
 
+/* CATALOGUE — reuses `.service` cards inside a 3-column grid. */
+.catalogue-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-left: 1px solid var(--rule);
+}
+.catalogue-note {
+  margin-top: 32px;
+  font-size: 13px;
+  color: var(--ink-3);
+  text-align: center;
+  line-height: 1.55;
+}
+.catalogue-note b {
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
 /* BOUTIQUES */
 .boutiques {
   display: grid;
@@ -1001,6 +1019,9 @@ footer {
   }
   .services {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .catalogue-grid {
+    grid-template-columns: 1fr;
   }
   /* Partner logos need denser packing than services to stay readable:
      2 cols leave a 160×80 cell on a phone, padded down to a 104×40

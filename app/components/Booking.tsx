@@ -33,6 +33,10 @@ const STORES: Store[] = [
   },
   { value: "Krys Optique", sub: "Nosy Be · Hell-Ville" },
   { value: "Opticien Krys Antsiranana", sub: "Antsiranana" },
+  {
+    value: "Krys Antananarivo - Analakely",
+    sub: "Centre Commercial Arkadia",
+  },
 ];
 
 const SERVICES = [

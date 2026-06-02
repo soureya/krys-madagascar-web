@@ -19,9 +19,9 @@ const availableLogos = new Set<string>(
 
 const TICKER_ITEMS = [
   "Krys Madagascar",
-  "5 cabinets agréés Ministère de la Santé",
+  "6 cabinets agréés Ministère de la Santé",
   "Examen de vue sur RDV",
-  "5 boutiques · Antananarivo, Antsiranana & Nosy-Be",
+  "6 boutiques · Antananarivo, Antsiranana & Nosy-Be",
   "Ray-Ban · Oakley · Persol · Maui Jim",
 ];
 
@@ -87,8 +87,8 @@ const BOUTIQUES: Boutique[] = [
   {
     name: "Opticien Krys Akoor Digue",
     schedule: {
-      weekdays: { open: "8h30", close: "19h00" },
-      sunday: { open: "9h00", close: "12h30" },
+      weekdays: [{ open: "9h00", close: "18h00" }],
+      sunday: [{ open: "9h00", close: "13h00" }],
     },
     // Approx. Centre Commercial Magri area, Antananarivo — to confirm
     coords: { lng: 47.5197, lat: -18.9043 },
@@ -102,17 +102,17 @@ const BOUTIQUES: Boutique[] = [
       </>
     ),
     hours: [
-      { label: "Aujourd'hui", value: "8h30 — 19h00", cls: "today" },
-      { label: "Lun — Sam", value: "8h30 — 19h00" },
-      { label: "Dimanche", value: "9h00 — 12h30" },
+      { label: "Aujourd'hui", value: "9h00 — 18h00", cls: "today" },
+      { label: "Lun — Sam", value: "9h00 — 18h00" },
+      { label: "Dimanche", value: "9h00 — 13h00" },
     ],
     phone: "034 85 708 16",
   },
   {
     name: "Krys Antananarivo - Soarano",
     schedule: {
-      weekdays: { open: "9h00", close: "18h30" },
-      sunday: null,
+      weekdays: [{ open: "9h00", close: "18h00" }],
+      sunday: [],
     },
     // Gare Soarano, Antananarivo (historic train station area)
     coords: { lng: 47.5223, lat: -18.9099 },
@@ -126,8 +126,8 @@ const BOUTIQUES: Boutique[] = [
       </>
     ),
     hours: [
-      { label: "Aujourd'hui", value: "9h00 — 18h30", cls: "today" },
-      { label: "Lun — Sam", value: "9h00 — 18h30" },
+      { label: "Aujourd'hui", value: "9h00 — 18h00", cls: "today" },
+      { label: "Lun — Sam", value: "9h00 — 18h00" },
       { label: "Dimanche", value: "Fermé", cls: "closed" },
     ],
     phone: "034 85 708 15",
@@ -135,8 +135,8 @@ const BOUTIQUES: Boutique[] = [
   {
     name: "Krys Antananarivo - Cc Zoom",
     schedule: {
-      weekdays: { open: "9h00", close: "19h00" },
-      sunday: { open: "9h00", close: "13h00" },
+      weekdays: [{ open: "9h00", close: "18h00" }],
+      sunday: [{ open: "9h00", close: "13h00" }],
     },
     // Centre commercial Arkadia/Zoom, Ankorondrano, Antananarivo
     coords: { lng: 47.5274, lat: -18.8783 },
@@ -150,8 +150,8 @@ const BOUTIQUES: Boutique[] = [
       </>
     ),
     hours: [
-      { label: "Aujourd'hui", value: "9h00 — 19h00", cls: "today" },
-      { label: "Lun — Sam", value: "9h00 — 19h00" },
+      { label: "Aujourd'hui", value: "9h00 — 18h00", cls: "today" },
+      { label: "Lun — Sam", value: "9h00 — 18h00" },
       { label: "Dimanche", value: "9h00 — 13h00" },
     ],
     phone: "034 85 708 14",
@@ -159,8 +159,11 @@ const BOUTIQUES: Boutique[] = [
   {
     name: "Krys Optique",
     schedule: {
-      weekdays: { open: "8h30", close: "19h00" },
-      sunday: { open: "9h00", close: "12h30" },
+      weekdays: [
+        { open: "9h00", close: "12h00" },
+        { open: "14h00", close: "18h00" },
+      ],
+      sunday: [],
     },
     // Hell-Ville (Andoany), Nosy Be
     coords: { lng: 48.2746, lat: -13.4072 },
@@ -174,17 +177,20 @@ const BOUTIQUES: Boutique[] = [
       </>
     ),
     hours: [
-      { label: "Aujourd'hui", value: "8h30 — 19h00", cls: "today" },
-      { label: "Lun — Sam", value: "8h30 — 19h00" },
-      { label: "Dimanche", value: "9h00 — 12h30" },
+      { label: "Aujourd'hui", value: "9h — 12h · 14h — 18h", cls: "today" },
+      { label: "Lun — Sam", value: "9h — 12h · 14h — 18h" },
+      { label: "Dimanche", value: "Fermé", cls: "closed" },
     ],
     phone: "032 12 698 00",
   },
   {
     name: "Opticien Krys Antsiranana",
     schedule: {
-      weekdays: { open: "9h00", close: "18h30" },
-      sunday: null,
+      weekdays: [
+        { open: "8h30", close: "12h30" },
+        { open: "15h00", close: "17h30" },
+      ],
+      sunday: [],
     },
     // Rue Lafayette / Jean Bart, quartier Bazarikely, Antsiranana
     coords: { lng: 49.2926, lat: -12.2787 },
@@ -198,11 +204,36 @@ const BOUTIQUES: Boutique[] = [
       </>
     ),
     hours: [
-      { label: "Aujourd'hui", value: "9h00 — 18h30", cls: "today" },
-      { label: "Lun — Sam", value: "9h00 — 18h30" },
+      { label: "Aujourd'hui", value: "8h30 — 12h30 · 15h — 17h30", cls: "today" },
+      { label: "Lun — Sam", value: "8h30 — 12h30 · 15h — 17h30" },
       { label: "Dimanche", value: "Fermé", cls: "closed" },
     ],
     phone: "038 85 708 16",
+  },
+  {
+    name: "Krys Antananarivo - Analakely",
+    schedule: {
+      weekdays: [{ open: "9h00", close: "18h00" }],
+      sunday: [{ open: "9h00", close: "13h00" }],
+    },
+    // Centre Commercial Arkadia, Av. de l'Indépendance, Analakely
+    // (downtown Antananarivo) — coordinates approximate, to refine.
+    coords: { lng: 47.5215, lat: -18.9118 },
+    mapsUrl:
+      "https://www.google.com/maps/dir/?api=1&destination=-18.9118,47.5215",
+    address: (
+      <>
+        Centre Commercial Arkadia, 8 Av. de l&apos;Indépendance
+        <br />
+        Antananarivo 101 · Madagascar
+      </>
+    ),
+    hours: [
+      { label: "Aujourd'hui", value: "9h00 — 18h00", cls: "today" },
+      { label: "Lun — Sam", value: "9h00 — 18h00" },
+      { label: "Dimanche", value: "9h00 — 13h00" },
+    ],
+    phone: "034 49 708 18",
   },
 ];
 
@@ -226,6 +257,7 @@ export default function Home() {
           <nav className="nav-links">
             <a href="#frames">Vitrine</a>
             <a href="#services">Services</a>
+            <a href="#catalogue">Catalogue</a>
             <a href="#boutiques">Boutiques</a>
             <a href="#partenaires">Marques</a>
             <a href="#histoire">Histoire</a>
@@ -305,15 +337,78 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section" id="boutiques">
+      <section className="section" id="catalogue">
         <div className="container">
           <div className="section-head">
             <span className="num">§02</span>
             <h2>
-              <b>Cinq</b> boutiques
+              <b>Catalogue</b> en ligne
             </h2>
             <div className="right">
-              Trois adresses à Antananarivo, une à Nosy Be et une dans le Nord. Les cinq cabinets
+              Explorez la sélection Krys en ligne, puis venez essayer les modèles
+              en boutique.
+            </div>
+          </div>
+          <div className="catalogue-grid">
+            <a
+              className="service"
+              href="https://www.krys.com/lunettes-de-vue"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="ico">01</div>
+              <h3>Lunettes de vue</h3>
+              <p>
+                Plus de 1 000 modèles à essayer en boutique. Toutes les grandes
+                marques et la collection Krys.
+              </p>
+              <span className="more">Explorer sur Krys.com ↗</span>
+            </a>
+            <a
+              className="service"
+              href="https://www.krys.com/lunettes-de-soleil"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="ico">02</div>
+              <h3>Lunettes de soleil</h3>
+              <p>
+                Solaires polarisées, photochromiques et de vue. Sélection
+                saisonnière renouvelée régulièrement.
+              </p>
+              <span className="more">Explorer sur Krys.com ↗</span>
+            </a>
+            <a
+              className="service"
+              href="https://www.krys.com/lentilles"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="ico">03</div>
+              <h3>Lentilles</h3>
+              <p>
+                Souples, rigides, progressives. Pose, adaptation et suivi assurés
+                par nos opticiens diplômés.
+              </p>
+              <span className="more">Explorer sur Krys.com ↗</span>
+            </a>
+          </div>
+          <p className="catalogue-note">
+            Les <b>lunettes connectées</b> et les <b>solutions auditives</b> Krys
+            ne sont pas encore disponibles à Madagascar.
+          </p>
+        </div>
+      </section>
+
+      <section className="section" id="boutiques">
+        <div className="container">
+          <div className="section-head">
+            <span className="num">§03</span>
+            <h2>
+              <b>Six</b> boutiques
+            </h2>
+            <div className="right">
+              Quatre adresses à Antananarivo, une à Nosy Be et une dans le Nord. Les six cabinets
               sont agréés par le Ministère de la Santé.
             </div>
           </div>
@@ -378,7 +473,7 @@ export default function Home() {
       <section className="section partners-section" id="partenaires">
         <div className="container">
           <div className="section-head">
-            <span className="num">§03</span>
+            <span className="num">§04</span>
             <h2>
               <b>Parmi les marques</b> partenaires
             </h2>
@@ -409,7 +504,7 @@ export default function Home() {
         <div className="container">
           <div>
             <span className="mono" style={{ color: "rgba(255,255,255,0.5)" }}>
-              §04 — Histoire
+              §05 — Histoire
             </span>
             <h2 style={{ marginTop: 14 }}>
               Krys Madagascar, votre référence en optique <b>depuis 1997.</b>
@@ -417,10 +512,10 @@ export default function Home() {
             <p>
               Née d&apos;une volonté simple : offrir à chaque Malgache un service
               d&apos;optique d&apos;excellence, sans avoir à quitter l&apos;île. Près de trois
-              décennies plus tard, c&apos;est une histoire qui continue de grandir : cinq
-              boutiques, cinq opticiens diplômés et plus de 100 marques partenaires.
+              décennies plus tard, c&apos;est une histoire qui continue de grandir : six
+              boutiques, six opticiens diplômés et plus de 100 marques partenaires.
             </p>
-            <p>Nos cinq cabinets sont agréés par le Ministère de la Santé.</p>
+            <p>Nos six cabinets sont agréés par le Ministère de la Santé.</p>
           </div>
           <div className="stats">
             <div className="stat">
@@ -428,11 +523,11 @@ export default function Home() {
               <span>Première boutique</span>
             </div>
             <div className="stat">
-              <b>05</b>
+              <b>06</b>
               <span>Adresses à Madagascar</span>
             </div>
             <div className="stat">
-              <b>05</b>
+              <b>06</b>
               <span>Opticiens diplômés</span>
             </div>
             <div className="stat">
@@ -448,7 +543,7 @@ export default function Home() {
           <div className="booking-wrap">
             <div className="booking-side">
               <span className="mono" style={{ color: "var(--ink-3)" }}>
-                §05 — Rendez-vous
+                §06 — Rendez-vous
               </span>
               <h2 style={{ marginTop: 14 }}>
                 <b>Réservez</b>
@@ -456,7 +551,7 @@ export default function Home() {
                 en deux minutes.
               </h2>
               <p className="lede">
-                Disponibilités en temps réel sur les cinq boutiques. Confirmation par e-mail et
+                Disponibilités en temps réel sur les six boutiques. Confirmation par e-mail et
                 SMS, gratuite, sans engagement.
               </p>
               <ul>
@@ -513,6 +608,9 @@ export default function Home() {
                 </li>
                 <li>
                   <a href="#boutiques">Opticien Krys Antsiranana</a>
+                </li>
+                <li>
+                  <a href="#boutiques">Krys Antananarivo - Analakely</a>
                 </li>
               </ul>
             </div>

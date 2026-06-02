@@ -20,11 +20,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.krys-madagascar.com"),
   title: "Krys Madagascar — Opticien à Antananarivo, Nosy Be & Antsiranana",
   description:
-    "Cinq cabinets d'optique agréés à Madagascar, affiliés au réseau Krys. Examens de vue, lunettes de vue, solaires et lentilles. Prenez rendez-vous en ligne.",
+    "Six cabinets d'optique agréés à Madagascar, affiliés au réseau Krys. Examens de vue, lunettes de vue, solaires et lentilles. Prenez rendez-vous en ligne.",
   openGraph: {
     title: "Krys Madagascar — Opticien à Antananarivo, Nosy Be & Antsiranana",
     description:
-      "Cinq cabinets d'optique agréés à Madagascar. Examens de vue, lunettes, solaires, lentilles. Prenez rendez-vous.",
+      "Six cabinets d'optique agréés à Madagascar. Examens de vue, lunettes, solaires, lentilles. Prenez rendez-vous.",
     url: "https://www.krys-madagascar.com",
     siteName: "Krys Madagascar",
     locale: "fr_MG",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Krys Madagascar — Opticien à Madagascar",
     description:
-      "Cinq cabinets d'optique agréés. Examens de vue, lunettes, lentilles. Prenez rendez-vous en ligne.",
+      "Six cabinets d'optique agréés. Examens de vue, lunettes, lentilles. Prenez rendez-vous en ligne.",
   },
 };
 
