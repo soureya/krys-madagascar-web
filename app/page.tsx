@@ -106,7 +106,7 @@ const BOUTIQUES: Boutique[] = [
       { label: "Lun — Sam", value: "8h30 — 19h00" },
       { label: "Dimanche", value: "9h00 — 12h30" },
     ],
-    phone: "+261 20 22 67 754",
+    phone: "034 85 708 16",
   },
   {
     name: "Krys Antananarivo - Soarano",
@@ -130,7 +130,7 @@ const BOUTIQUES: Boutique[] = [
       { label: "Lun — Sam", value: "9h00 — 18h30" },
       { label: "Dimanche", value: "Fermé", cls: "closed" },
     ],
-    phone: "+261 34 07 677 54",
+    phone: "034 85 708 15",
   },
   {
     name: "Krys Antananarivo - Cc Zoom",
@@ -154,7 +154,7 @@ const BOUTIQUES: Boutique[] = [
       { label: "Lun — Sam", value: "9h00 — 19h00" },
       { label: "Dimanche", value: "9h00 — 13h00" },
     ],
-    phone: "+261 34 07 677 54",
+    phone: "034 85 708 14",
   },
   {
     name: "Krys Optique",
@@ -178,7 +178,7 @@ const BOUTIQUES: Boutique[] = [
       { label: "Lun — Sam", value: "8h30 — 19h00" },
       { label: "Dimanche", value: "9h00 — 12h30" },
     ],
-    phone: "+261 32 49 698 73",
+    phone: "032 12 698 00",
   },
   {
     name: "Opticien Krys Antsiranana",
@@ -202,7 +202,7 @@ const BOUTIQUES: Boutique[] = [
       { label: "Lun — Sam", value: "9h00 — 18h30" },
       { label: "Dimanche", value: "Fermé", cls: "closed" },
     ],
-    phone: "+261 34 07 677 54",
+    phone: "038 85 708 16",
   },
 ];
 
@@ -231,7 +231,6 @@ export default function Home() {
             <a href="#histoire">Histoire</a>
           </nav>
           <div className="top-right">
-            <span className="secondary">+261 20 22 234 56</span>
             <a href="#rdv" className="cta">
               Prendre rendez-vous
             </a>
@@ -346,7 +345,13 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
-                  <div className="phone">{b.phone}</div>
+                  <div className="phone">
+                    <a
+                      href={`tel:${b.phone.replace(/\s+/g, "").replace(/^0/, "+261")}`}
+                    >
+                      {b.phone}
+                    </a>
+                  </div>
                   <div className="accred">
                     <span className="accred-mark">✓</span>
                     Cabinet agréé&nbsp;— Ministère de la Santé

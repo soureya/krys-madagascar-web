@@ -18,7 +18,7 @@ export const storesSchema = [
   {
     ...SHARED,
     name: "Optique de la Grande Ile",
-    telephone: "+261202267754",
+    telephone: "+261348570816",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Centre Commercial Magri, 12011 Poste Zoom",
@@ -44,7 +44,7 @@ export const storesSchema = [
   {
     ...SHARED,
     name: "Zoom Optique Gare Soarano",
-    telephone: "+261340767754",
+    telephone: "+261348570815",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Centre commercial Gare Soarano",
@@ -64,7 +64,7 @@ export const storesSchema = [
   {
     ...SHARED,
     name: "Arkadia Optique",
-    telephone: "+261340767754",
+    telephone: "+261348570814",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Galerie Zoom Ankorondrano",
@@ -90,7 +90,7 @@ export const storesSchema = [
   {
     ...SHARED,
     name: "Ylang Optique (Krys Optique)",
-    telephone: "+261324969873",
+    telephone: "+261321269800",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Centre commercial le Mail, Djabala, Hell-Ville",
@@ -116,7 +116,7 @@ export const storesSchema = [
   {
     ...SHARED,
     name: "Optique de l'Ankarana",
-    telephone: "+261340767754",
+    telephone: "+261388570816",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Rue Lafayette et Jean Bart, Bazarikely",
