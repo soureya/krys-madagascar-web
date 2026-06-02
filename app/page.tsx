@@ -85,7 +85,7 @@ function mapUrl(coords: { lng: number; lat: number }) {
 
 const BOUTIQUES: Boutique[] = [
   {
-    name: "Opticien Krys Akoor Digue",
+    name: "KRYS - Antananarivo Akoor Digue",
     schedule: {
       weekdays: [{ open: "9h00", close: "18h00" }],
       sunday: [{ open: "9h00", close: "13h00" }],
@@ -184,7 +184,7 @@ const BOUTIQUES: Boutique[] = [
     phone: "032 12 698 00",
   },
   {
-    name: "Opticien Krys Antsiranana",
+    name: "KRYS - Antsiranana Centre",
     schedule: {
       weekdays: [
         { open: "8h30", close: "12h30" },
@@ -211,7 +211,7 @@ const BOUTIQUES: Boutique[] = [
     phone: "038 85 708 16",
   },
   {
-    name: "Krys Antananarivo - Analakely",
+    name: "KRYS - Antananarivo Analakely",
     schedule: {
       weekdays: [{ open: "9h00", close: "18h00" }],
       sunday: [{ open: "9h00", close: "13h00" }],
@@ -582,7 +582,7 @@ export default function Home() {
               <h4>Boutiques</h4>
               <ul>
                 <li>
-                  <a href="#boutiques">Opticien Krys Akoor Digue</a>
+                  <a href="#boutiques">KRYS - Antananarivo Akoor Digue</a>
                 </li>
                 <li>
                   <a href="#boutiques">Krys Antananarivo - Soarano</a>
@@ -594,10 +594,10 @@ export default function Home() {
                   <a href="#boutiques">Krys Optique, Nosy Be</a>
                 </li>
                 <li>
-                  <a href="#boutiques">Opticien Krys Antsiranana</a>
+                  <a href="#boutiques">KRYS - Antsiranana Centre</a>
                 </li>
                 <li>
-                  <a href="#boutiques">Krys Antananarivo - Analakely</a>
+                  <a href="#boutiques">KRYS - Antananarivo Analakely</a>
                 </li>
               </ul>
             </div>

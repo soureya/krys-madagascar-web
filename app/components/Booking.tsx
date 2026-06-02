@@ -14,7 +14,7 @@ type Store = {
 
 const STORES: Store[] = [
   {
-    value: "Opticien Krys Akoor Digue",
+    value: "KRYS - Antananarivo Akoor Digue",
     sub: "Antananarivo",
     redirect:
       "https://madadoc.com/fr/p/ophtalmologue/antananarivo/ophtalmologue-krys-akoor-digue",
@@ -32,9 +32,9 @@ const STORES: Store[] = [
       "https://madadoc.com/fr/p/ophtalmologue/antananarivo/ophtalmologue-krys-zoom-optique",
   },
   { value: "Krys Optique", sub: "Nosy Be · Hell-Ville" },
-  { value: "Opticien Krys Antsiranana", sub: "Antsiranana" },
+  { value: "KRYS - Antsiranana Centre", sub: "Antsiranana" },
   {
-    value: "Krys Antananarivo - Analakely",
+    value: "KRYS - Antananarivo Analakely",
     sub: "Centre Commercial Arkadia",
   },
 ];
