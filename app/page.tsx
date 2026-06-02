@@ -275,9 +275,6 @@ export default function Home() {
           <div className="hero-grid">
             <div className="hero-text">
               <div className="hero-text-top">
-                <span className="mono" style={{ color: "var(--ink-3)" }}>
-                  §00 — Accueil
-                </span>
                 <h1>
                   <b>Krys,</b> votre opticien de référence à{" "}
                   <i>Madagascar</i>
@@ -315,7 +312,6 @@ export default function Home() {
       <section className="section" id="services">
         <div className="container">
           <div className="section-head">
-            <span className="num">§01</span>
             <h2>
               <b>Services</b> en magasins
             </h2>
@@ -340,7 +336,6 @@ export default function Home() {
       <section className="section" id="catalogue">
         <div className="container">
           <div className="section-head">
-            <span className="num">§02</span>
             <h2>
               <b>Catalogue</b> en ligne
             </h2>
@@ -403,7 +398,6 @@ export default function Home() {
       <section className="section" id="boutiques">
         <div className="container">
           <div className="section-head">
-            <span className="num">§03</span>
             <h2>
               <b>Six</b> boutiques
             </h2>
@@ -473,7 +467,6 @@ export default function Home() {
       <section className="section partners-section" id="partenaires">
         <div className="container">
           <div className="section-head">
-            <span className="num">§04</span>
             <h2>
               <b>Parmi les marques</b> partenaires
             </h2>
@@ -503,10 +496,7 @@ export default function Home() {
       <section className="heritage" id="histoire">
         <div className="container">
           <div>
-            <span className="mono" style={{ color: "rgba(255,255,255,0.5)" }}>
-              §05 — Histoire
-            </span>
-            <h2 style={{ marginTop: 14 }}>
+            <h2>
               Krys Madagascar, votre référence en optique <b>depuis 1997.</b>
             </h2>
             <p>
@@ -542,10 +532,7 @@ export default function Home() {
         <div className="container">
           <div className="booking-wrap">
             <div className="booking-side">
-              <span className="mono" style={{ color: "var(--ink-3)" }}>
-                §06 — Rendez-vous
-              </span>
-              <h2 style={{ marginTop: 14 }}>
+              <h2>
                 <b>Réservez</b>
                 <br />
                 en deux minutes.
