@@ -250,10 +250,10 @@ export default function Home() {
 
       <header className="top">
         <div className="top-inner">
-          <div className="brand">
+          <a className="brand" href="#" aria-label="Retour en haut">
             <Image src="/krys.svg" alt="Krys" width={62} height={28} priority />
             <span className="name">Krys Madagascar</span>
-          </div>
+          </a>
           <nav className="nav-links">
             <a href="#frames">Vitrine</a>
             <a href="#services">Services</a>
