@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.krys-madagascar.com"),
   title: "Krys Madagascar — Opticien à Antananarivo, Nosy Be & Antsiranana",
   description:
     "Cinq cabinets d'optique agréés à Madagascar, affiliés au réseau Krys. Examens de vue, lunettes de vue, solaires et lentilles. Prenez rendez-vous en ligne.",
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     title: "Krys Madagascar — Opticien à Antananarivo, Nosy Be & Antsiranana",
     description:
       "Cinq cabinets d'optique agréés à Madagascar. Examens de vue, lunettes, solaires, lentilles. Prenez rendez-vous.",
-    url: "https://krys-madagascar-web.vercel.app",
+    url: "https://www.krys-madagascar.com",
     siteName: "Krys Madagascar",
     locale: "fr_MG",
     type: "website",
