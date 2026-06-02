@@ -5,8 +5,8 @@
 const SHARED = {
   "@context": "https://schema.org",
   "@type": "MedicalBusiness",
-  url: "https://krys-madagascar-web.vercel.app",
-  image: "https://krys-madagascar-web.vercel.app/hero.png",
+  url: "https://www.krys-madagascar.com",
+  image: "https://www.krys-madagascar.com/hero.png",
   priceRange: "$$",
   currenciesAccepted: "MGA",
   areaServed: "Madagascar",
