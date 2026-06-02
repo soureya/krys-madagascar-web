@@ -556,7 +556,7 @@ export default function Home() {
                   <b>Prise en charge</b>&nbsp; par vos assurances et mutuelles de référence
                 </li>
                 <li>
-                  <b>Annulation libre</b>
+                  <b>Sans engagement</b>&nbsp; modifiez ou annulez à tout moment
                 </li>
               </ul>
             </div>
