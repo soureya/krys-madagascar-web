@@ -840,6 +840,32 @@ button {
 .next-btn:hover {
   background: var(--blue-deep);
 }
+/* Outlined variant for the secondary CTA when two are shown side by
+   side (Madadoc primary + phone fallback). */
+.next-btn.ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  transition: background 150ms, border-color 150ms;
+}
+.next-btn.ghost:hover {
+  background: var(--bg-2);
+  border-color: var(--ink);
+}
+/* CTA row at the bottom of the booking card. Wraps to two stacked
+   full-width buttons on phones. */
+.booking-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+@media (max-width: 480px) {
+  .booking-cta-row .next-btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
 .next-btn:disabled {
   background: var(--bg-3);
   color: var(--ink-3);
