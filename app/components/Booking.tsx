@@ -68,7 +68,9 @@ export default function Booking() {
       <div className="panel active">
         <h4>Choisissez votre boutique</h4>
         <p className="hint">
-          Tous nos cabinets proposent l&apos;ensemble des services.
+          Tous nos cabinets couvrent l&apos;ensemble du parcours :
+          examen de vue, sélection de lunettes de vue et solaires,
+          adaptation de lentilles, et réparation de vos montures.
         </p>
         <div className="choice-grid">
           {STORES.map((s) => (
